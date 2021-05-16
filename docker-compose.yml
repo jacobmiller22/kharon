@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  rp:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./rp
+    volumes:
+      - ./rp:/app
+    ports:
+      - 4000:7878
+    environment:
+      - EXP_HOST=test-server
+      - EXP_PORT=5000
+  test-server:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./test/testing_server
+    volumes:
+      - ./test/testing_server:/app
+    # ports:
+    # - 5000-6000:5050
