@@ -42,7 +42,7 @@ fn handle_client_connection(mut stream: TcpStream){
         let address = format!("{}:{}", server_host, server_port);
         let mut out_stream = TcpStream::connect(address).unwrap();
         
-        // Send bytes to backend
+        // Send bytes to backend~
         out_stream.write(&buffer[..]).unwrap();
         out_stream.flush().unwrap();
         out_stream.read(&mut buffer).unwrap();
