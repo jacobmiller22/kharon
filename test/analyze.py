@@ -11,13 +11,17 @@ from scipy.stats import norm
 import statistics
 
 # retrieve data from
-option = -1 
-if sys.argv[1] == "new":
-  option = 0
-else:
-  option = 1
+# option = -1 
+# if sys.argv[1] == "new":
+#   option = 0
+# else:
+#   option = 1
+out_file = "performance.txt"
+if len(sys.argv) == 2:
+  out_file = sys.argv[1]
 
-TEST_SIZE = 1000
+
+TEST_SIZE = 5
 
 sample_averages = []
 
@@ -35,8 +39,8 @@ for i in range(TEST_SIZE + 1):
   # if i == TEST_SIZE - 1:
   #   break
 
-  os.system("ab -n 10000 -c 500 http://localhost:4000/ > performance_threadpool.txt")
-  pf = open("performance_threadpool.txt", "r")
+  os.system("ab -n 10000 -c 500 http://localhost:4000/ > performance/{}".format(out_file))
+  pf = open("performance/{}".format(out_file), "r")
   # The mean is on the 21st line
   for i in range(20):
     pf.readline()
@@ -49,7 +53,7 @@ for i in range(TEST_SIZE + 1):
   pf.close()
 
 x_axis = np.arange(4000, 10000, 0.5)
-print(sample_averages)
+
 mu = statistics.mean(data=sample_averages)
 sd = statistics.stdev(data=sample_averages)
 
@@ -64,7 +68,8 @@ plt.plot(x_axis, norm.pdf(x_axis, mu, sd))
 
 # plt.plot([1,2,3,4])
 # plt.ylabel('some numbers')
-plt.show()
+plt.savefig("performance/{}".format(out_file.replace(".txt", ".png")))
+# plt.show()
 
 
 

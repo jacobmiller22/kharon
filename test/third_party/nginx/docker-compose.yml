@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "4000:80"
+  test-server:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ../../testing_server
+    volumes:
+      - ../../testing_server:/app
+    # ports:
+    # - 5000-6000:5050
