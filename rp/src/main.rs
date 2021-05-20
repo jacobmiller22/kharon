@@ -33,22 +33,22 @@ fn connect_client() {
 
 fn handle_client_connection(mut stream: TcpStream){
 
-        let mut buffer = [0; 1024]; //TODO: look into buffer size
-        stream.read(&mut buffer).unwrap();
+    let mut buffer = [0; 8192]; //TODO: look into buffer size
+    stream.read(&mut buffer).unwrap();
 
-        // Choose which server to talk to.
-        let server_host = env::var("EXP_HOST").unwrap();
-        let server_port = env::var("EXP_PORT").unwrap();
-        let address = format!("{}:{}", server_host, server_port);
-        let mut out_stream = TcpStream::connect(address).unwrap();
+    // Choose which server to talk to.
+    let server_host: String = env::var("EXP_HOST").unwrap();
+    let server_port: String = env::var("EXP_PORT").unwrap();
+    let address = format!("{}:{}", server_host, server_port);
+    let mut out_stream = TcpStream::connect(address).unwrap();
         
-        // Send bytes to backend~
-        out_stream.write(&buffer[..]).unwrap();
-        out_stream.flush().unwrap();
-        out_stream.read(&mut buffer).unwrap();
+    // Send bytes to backend~
+    out_stream.write(&buffer[..]).unwrap();
+    out_stream.flush().unwrap();
+    out_stream.read(&mut buffer).unwrap();
             
-        // Send backend response to client
-        stream.write(&buffer[..]).unwrap();
-        stream.flush().unwrap();
+    // Send backend response to client
+    stream.write(&buffer[..]).unwrap();
+    stream.flush().unwrap();
     
 }
