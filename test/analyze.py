@@ -38,8 +38,8 @@ for i in range(TEST_SIZE + 1):
 
   # if i == TEST_SIZE - 1:
   #   break
-
-  os.system("ab -n 10000 -c 500 http://localhost:4000/ > performance/{}".format(out_file))
+  print("Running test")
+  os.system("ab -k -n 10000 -c 500 http://localhost:4000/ > performance/{}".format(out_file))
   pf = open("performance/{}".format(out_file), "r")
   # The mean is on the 21st line
   for i in range(20):

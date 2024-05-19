@@ -1,0 +1,16 @@
+{
+  "test1": {
+    "description": "Simple GET requests to /",
+    "requests": [
+      {
+        "method": "GET",
+        "params": {
+          "Host": "localhost:4000",
+          "Accept": "*/*"
+        },
+        "route": "/",
+        "response": {}
+      }
+    ]
+  }
+}
